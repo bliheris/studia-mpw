@@ -25,5 +25,5 @@ server.uploadFile({
 	clientId: 'maciek'
 })
 
-setInterval(() => writeFile('maciek'), seconds(2))
+setInterval(() => writeFile('maciek'), seconds(4))
 setInterval(() => writeFile('psipsiak'), seconds(6))

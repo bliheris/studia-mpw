@@ -1,4 +1,5 @@
 const fs = require('fs')
+const fse = require('fs-extra')
 const recursive = require('recursive-readdir')
 const { seconds } = require('./time-helper')
 
@@ -14,14 +15,20 @@ const downloadFile = (file) => {
 	const idx = file.lastIndexOf('/')
 	const fileName = file.substr(idx + 1)
 	const path = `./${downloadDir}/${fileName}`
-	fs.writeFile(path, (err) => {
-		if(err){
-			console.log('Error when downloading a file', err)
-			return
-		}
 
-		console.log(`File ${file } downloaded`)
+	fse.copy(file, path, err => {
+		if (err) return console.error(err)
+		console.log(`File ${fileName} downloaded`)
 	})
+
+	// fs.writeFile(path, (err) => {
+	// 	if(err){
+	// 		console.log('Error when downloading a file', err)
+	// 		return
+	// 	}
+	//
+	// 	console.log(`File ${file } downloaded`)
+	// })
 }
 
 let allItems = []
