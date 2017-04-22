@@ -1,6 +1,4 @@
-//const fs = require('fs')
-
-const server = require('./server-impl')
+const server = require('./files-server')
 
 const writeFile = () => {
 	const now = new Date()
@@ -8,4 +6,4 @@ const writeFile = () => {
 	server.uploadFile(fileName)
 }
 
-setInterval(writeFile, 100 * 1)
+setInterval(writeFile, 100)
