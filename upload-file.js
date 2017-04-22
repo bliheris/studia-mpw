@@ -1,4 +1,5 @@
 const server = require('./files-server')
+const { seconds } = require('./time-helper')
 
 const writeFile = () => {
 	const now = new Date()
@@ -6,4 +7,4 @@ const writeFile = () => {
 	server.uploadFile(fileName)
 }
 
-setInterval(writeFile, 100)
+setInterval(writeFile, seconds(1))
