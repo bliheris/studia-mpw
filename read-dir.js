@@ -1,7 +1,7 @@
 const fs = require('fs')
+const { seconds } = require('./time-helper')
 
 const path = './server/'
-const second = 1000
 
 const downloadDir = process.argv[2]
 
@@ -35,5 +35,5 @@ const readDir = () => {
 	})
 }
 
-setInterval(readDir, second  * 3)
+setInterval(readDir, seconds(3))
 

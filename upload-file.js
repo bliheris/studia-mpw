@@ -10,5 +10,5 @@ const writeFile = (clientId) => {
 	})
 }
 
-setInterval(() => writeFile('maciek'), seconds(1))
-setInterval(() => writeFile('psipsiak'), seconds(10))
+setInterval(() => writeFile('maciek'), seconds(2))
+setInterval(() => writeFile('psipsiak'), seconds(6))
