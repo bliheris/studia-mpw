@@ -1,7 +1,7 @@
 const fs = require('fs')
 
 const QUEUE_PROCESS_TIME = 50
-const FILE_UPLOAD_TIME = 1000 * 5
+const FILE_UPLOAD_TIME = 1000 * 20
 const WORKER_TASK_LIMIT = 2
 
 const workers = [
@@ -34,18 +34,16 @@ const processQueue = () => {
 	if(worker){
 		myQueue = otherTasks
 		increaseWorkerTaskCount(worker)
-		console.log('Processing task:', task, ' on', worker.index)
+		console.log('Processing task:', task.file, 'for ', task.clientId, ' on', worker.index)
 
-		//setTimeout(() => decreaseWorkerTasksCount(worker), 5000)
-
-		const path = `./server/c${worker.index}/${task}`
+		const path = `./server/c${worker.index}/${task.file}`
 		setTimeout(() => {
-			fs.writeFile(path, 'test1', (err) => {
+			fs.writeFile(path, task.clientId, (err) => {
 				if (err) {
-					console.log('Error when creating a file')
+					//console.log('Error when creating a file')
 					return
 				}
-				console.log('File saved on c', worker.index)
+				//console.log('File saved on c', worker.index)
 				decreaseWorkerTasksCount(worker)
 			})
 		}, FILE_UPLOAD_TIME)
@@ -55,8 +53,10 @@ const processQueue = () => {
 
 setInterval(processQueue, QUEUE_PROCESS_TIME)
 
-const internalFileUpload = (file) => {
-	myQueue.push(file)
+const internalFileUpload = (uploadTask) => {
+	//console.log(uploadTask)
+	myQueue.push(uploadTask)
+	console.log(myQueue)
 }
 
 module.exports = {
