@@ -1,5 +1,5 @@
 const fs = require('fs')
-const { groupBy, keys } = require('lodash')
+const { groupBy, keys, includes } = require('lodash')
 
 const QUEUE_PROCESS_TIME = 50
 const FILE_UPLOAD_TIME = 1000 * 10
@@ -79,10 +79,17 @@ const reorderQueue = (queue) => {
 }
 
 const internalFileUpload = (uploadTask) => {
-	myQueue = myQueue.concat(uploadTask)
-	console.log('Old queue', myQueue)
-	myQueue = reorderQueue(myQueue)
-	console.log('New queue', myQueue)
+	const fileData = fs.readFileSync('files.txt', 'utf8')
+
+	if(includes(fileData, uploadTask.file)){
+		console.log('File', uploadTask.file, ' already uploaded')
+	}else{
+		const newData = fileData + uploadTask.file + '\n'
+		fs.writeFileSync('files.txt', newData, {'encoding':'utf8'})
+
+		myQueue = myQueue.concat(uploadTask)
+		myQueue = reorderQueue(myQueue)
+	}
 }
 
 module.exports = {

@@ -10,5 +10,20 @@ const writeFile = (clientId) => {
 	})
 }
 
+server.uploadFile({
+	file: 'a.txt',
+	clientId: 'maciek'
+})
+
+server.uploadFile({
+	file: 'a.txt',
+	clientId: 'maciek'
+})
+
+server.uploadFile({
+	file: 'a.txt',
+	clientId: 'maciek'
+})
+
 setInterval(() => writeFile('maciek'), seconds(2))
 setInterval(() => writeFile('psipsiak'), seconds(6))
