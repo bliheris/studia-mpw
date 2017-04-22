@@ -20,27 +20,18 @@ const downloadFile = (file) => {
 		if (err) return console.error(err)
 		console.log(`File ${fileName} downloaded`)
 	})
-
-	// fs.writeFile(path, (err) => {
-	// 	if(err){
-	// 		console.log('Error when downloading a file', err)
-	// 		return
-	// 	}
-	//
-	// 	console.log(`File ${file } downloaded`)
-	// })
 }
 
 let allItems = []
 
 const readDir = () => {
-	recursive(path, (err, items) => {
 
+	recursive(path, (err, items) => {
 		const diff = arrDifference(allItems, items)
+		allItems = items
 		diff.forEach(file => {
 			downloadFile(file)
 		})
-		allItems = items
 	})
 }
 
