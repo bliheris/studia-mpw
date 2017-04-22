@@ -1,4 +1,5 @@
 const fs = require('fs')
+const recursive = require('recursive-readdir')
 const { seconds } = require('./time-helper')
 
 const path = './server/'
@@ -10,7 +11,9 @@ const arrDifference = (oldArr, newArr) => {
 }
 
 const downloadFile = (file) => {
-	const path = `./${downloadDir}/${file}`
+	const idx = file.lastIndexOf('/')
+	const fileName = file.substr(idx + 1)
+	const path = `./${downloadDir}/${fileName}`
 	fs.writeFile(path, (err) => {
 		if(err){
 			console.log('Error when downloading a file', err)
@@ -24,10 +27,9 @@ const downloadFile = (file) => {
 let allItems = []
 
 const readDir = () => {
-	fs.readdir(path, (err, items) => {
+	recursive(path, (err, items) => {
 
 		const diff = arrDifference(allItems, items)
-		console.log(diff)
 		diff.forEach(file => {
 			downloadFile(file)
 		})

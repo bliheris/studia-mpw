@@ -17,6 +17,7 @@
   },
   "homepage": "https://github.com/bliheris/studia-mpw#readme",
   "dependencies": {
-    "lodash": "^4.17.4"
+    "lodash": "^4.17.4",
+    "recursive-readdir": "^2.1.1"
   }
 }
